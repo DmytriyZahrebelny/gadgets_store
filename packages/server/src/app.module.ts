@@ -17,7 +17,6 @@ import { decode } from './utils/jwt.utils';
       context: ({ req, res }) => {
         // Get the cookie from request
         const token = get(req, 'cookies.token');
-        console.log(req.headers);
         console.log({ token });
         // Verify the cookie
 
@@ -29,6 +28,11 @@ import { decode } from './utils/jwt.utils';
         }
 
         return { req, res };
+      },
+      cors: {
+        origin: 'http://localhost:3000',
+        credentials: true,
+        allowedHeaders: ['Content-Type', 'Authorization'],
       },
     }),
 

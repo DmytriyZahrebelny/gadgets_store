@@ -1,0 +1,6 @@
+login(input: {email: "test_1@mail.com", password: "1234"}) {
+  name
+  _id
+  email
+}
+    

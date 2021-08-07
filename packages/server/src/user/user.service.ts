@@ -12,15 +12,6 @@ import {
   LoginInput,
 } from './user.schema';
 import { signJwt } from '../utils/jwt.utils';
-import { CookieOptions } from 'express';
-
-const cookieOptions: CookieOptions = {
-  domain: 'localhost:5000', // <- Change to your client domain
-  secure: false, // <- Should be true if !development
-  sameSite: 'strict',
-  httpOnly: true,
-  path: '/',
-};
 
 @Injectable()
 export class UserService {
@@ -64,17 +55,23 @@ export class UserService {
     if (!user.active) {
       throw new Error('Please confirm your email address');
     }
+
     // Create a JWT
     const jwt = signJwt(omit(user.toJSON(), ['password', 'active']));
     // Set the JWT in a cookie
-    context.res.cookie('token', jwt, cookieOptions);
+    const cookie = `token=${jwt}; HttpOnly; Path=/; Max-Age=${
+      1000 * 60 * 60 * 24 * 7
+    }`;
+    context.res.setHeader('Set-Cookie', cookie);
 
     // return the user
     return user;
   }
 
   async logout(context) {
-    context.res.cookie('token', '', { ...cookieOptions, maxAge: 0 });
+    const cookie = `token="; HttpOnly; Path=/; Max-Age=0`;
+
+    context.res.setHeader('Set-Cookie', cookie);
     return null;
   }
 }

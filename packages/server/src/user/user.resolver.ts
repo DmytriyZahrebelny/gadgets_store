@@ -22,8 +22,9 @@ export class UserResolver {
     return this.userService.confirmUser(input);
   }
 
-  @Query(() => User, { nullable: true })
+  @Mutation(() => User, { nullable: true })
   async login(@Args('input') input: LoginInput, @Context() context: Ctx) {
+    console.log(input);
     return this.userService.login(input, context);
   }
 

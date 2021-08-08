@@ -1,4 +1,4 @@
-query Login($input: LoginInput!){
+mutation login($input: LoginInput!){
   login(input: $input){
     _id
     name

@@ -2,17 +2,20 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Author {
+type Company {
   _id: ID!
   name: String!
-  books: [Book!]!
+  products: [Product!]!
 }
 
-type Book {
+type Product {
   _id: ID!
-  title: String!
-  isbn: String!
-  author: Author!
+  modelName: String!
+  images: String!
+  type: String!
+  price: Float!
+  description: String!
+  company: Company!
 }
 
 type User {
@@ -23,33 +26,36 @@ type User {
 }
 
 type Query {
-  authors: [Author!]!
-  books: [Book!]!
-  book(input: FindBookInput!): Book!
+  companies: [Company!]!
+  products: [Product!]!
+  product(input: FindProductInput!): Product!
   me: User
   logout: User
 }
 
-input FindBookInput {
+input FindProductInput {
   _id: String!
 }
 
 type Mutation {
-  createAuthor(input: CreateAuthorInput!): Author!
-  createBook(input: CreateBookInput!): Book!
+  createCompany(input: CreateCompanyInput!): Company!
+  createProduct(input: CreateProductInput!): Product!
   registerUser(input: CreateUserInput!): User!
   confirmUser(input: ConfirmUserInput!): User!
   login(input: LoginInput!): User
 }
 
-input CreateAuthorInput {
+input CreateCompanyInput {
   name: String!
 }
 
-input CreateBookInput {
-  title: String!
-  isbn: String!
-  author: String!
+input CreateProductInput {
+  modelName: String!
+  images: String!
+  type: String!
+  price: Float!
+  description: String!
+  company: String!
 }
 
 input CreateUserInput {

@@ -2,10 +2,11 @@ import { get, set } from 'lodash';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { GraphQLModule } from '@nestjs/graphql';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthorModule } from './author/author.module';
-import { BookModule } from './book/book.module';
+import { CompanyModule } from './company/company.module';
+import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
 import { decode } from './utils/jwt.utils';
 
@@ -36,8 +37,8 @@ import { decode } from './utils/jwt.utils';
       },
     }),
 
-    AuthorModule,
-    BookModule,
+    CompanyModule,
+    ProductModule,
     UserModule,
   ],
   controllers: [AppController],

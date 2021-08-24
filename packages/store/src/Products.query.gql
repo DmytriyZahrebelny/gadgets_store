@@ -1,0 +1,10 @@
+query Products {
+  products {
+    modelName,
+    price,
+    company {
+      _id,
+      name
+    }
+  }
+}

@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     login({ variables: { input: { email: 'test_1@mail.com', password: '1234' } } });
-  }, [test]);
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;

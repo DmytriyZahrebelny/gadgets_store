@@ -34,5 +34,6 @@ module.exports = {
     'no-nested-ternary': 0,
     radix: 0,
     'no-param-reassign': 0,
+    '@typescript-eslint/triple-slash-reference': 0,
   },
 };

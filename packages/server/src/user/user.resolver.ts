@@ -24,7 +24,6 @@ export class UserResolver {
 
   @Mutation(() => User, { nullable: true })
   async login(@Args('input') input: LoginInput, @Context() context: Ctx) {
-    console.log(input);
     return this.userService.login(input, context);
   }
 

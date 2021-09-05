@@ -4,7 +4,7 @@ import { useFormContext, Controller } from 'react-hook-form';
 import { TextAreaFieldProps, ControllerArgumentsType, EventType } from '../types';
 import 'antd/dist/antd.css';
 
-export const TextAriaField = ({
+export const TextAria = ({
   name,
   label,
   onChange,
@@ -16,7 +16,7 @@ export const TextAriaField = ({
 }: TextAreaFieldProps) => {
   const { control } = useFormContext();
 
-  const getField = ({ field, fieldState }: ControllerArgumentsType) => {
+  const getField = ({ field }: ControllerArgumentsType) => {
     const handleChange = (evt: EventType) => {
       if (onChange) {
         onChange(evt);
@@ -24,21 +24,16 @@ export const TextAriaField = ({
       }
       field.onChange(evt);
     };
-    console.log(fieldState);
+
     return (
       <Form.Item
         name={name}
         label={label}
         labelCol={{ span: labelPosition === 'top' ? 24 : 0 }}
-        rules={[{ required, message: fieldState.error?.message }]}
+        rules={[{ required, message: `${name} is required` }]}
+        initialValue={defaultValue}
       >
-        <Input.TextArea
-          name={name}
-          onChange={handleChange}
-          defaultValue={defaultValue}
-          showCount={showCount}
-          {...rest}
-        />
+        <Input.TextArea name={name} onChange={handleChange} showCount={showCount} {...rest} />
       </Form.Item>
     );
   };

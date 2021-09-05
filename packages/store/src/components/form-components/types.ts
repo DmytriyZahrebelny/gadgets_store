@@ -1,9 +1,8 @@
-import { FormEvent } from 'react';
+import React, { FormEvent } from 'react';
 import { ControllerRenderProps, FieldValues, ControllerFieldState } from 'react-hook-form';
 
-export type FieldType = 'text' | 'textaria';
+export type FieldType = 'text' | 'textaria' | 'password';
 // | 'text'
-// | 'email'
 // | 'password'
 // | 'select'
 // | 'date'
@@ -32,6 +31,7 @@ export type TextFieldProps = {
   labelPosition?: 'top' | 'left';
   defaultValue?: string;
   size?: 'large' | 'middle' | 'small';
+  placeholder?: string;
   onChange?: (evt: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 } & BaseFieldProps;
 
@@ -41,6 +41,7 @@ export type TextAreaFieldProps = {
   defaultValue?: string;
   maxLength?: number;
   labelPosition?: 'top' | 'left';
+  placeholder?: string;
 } & BaseFieldProps;
 
 export type FieldsProps = TextFieldProps | TextAreaFieldProps;

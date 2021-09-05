@@ -1,23 +1,16 @@
-import { useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { Spin } from './components/spin';
 
-import LoginQuery from './Login.query.gql';
-import LoginMutation from './Login.mutation.gql';
-import { LoginMutation as Test, LoginMutationVariables } from './generated/ApolloComponents';
+import { Authorization } from './features/authorization';
+import { useConfirmUser } from './hooks/useConfirmUser';
 
 function App() {
-  const { loading, data } = useQuery(LoginQuery);
-  const [login] = useMutation<Test, LoginMutationVariables>(LoginMutation);
-
-  useEffect(() => {
-    login({ variables: { input: { email: 'test_1@mail.com', password: '1234' } } });
-  }, []);
+  const { loading } = useConfirmUser();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Spin />;
   }
-  console.log(data);
-  return <div className="App">data</div>;
+
+  return <Authorization />;
 }
 
 export default App;

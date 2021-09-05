@@ -15,19 +15,11 @@ export type Scalars = {
   Float: number;
 };
 
-export type Author = {
-  __typename?: 'Author';
+export type Company = {
+  __typename?: 'Company';
   _id: Scalars['ID'];
   name: Scalars['String'];
-  books: Array<Book>;
-};
-
-export type Book = {
-  __typename?: 'Book';
-  _id: Scalars['ID'];
-  title: Scalars['String'];
-  isbn: Scalars['String'];
-  author: Author;
+  products: Array<Product>;
 };
 
 export type ConfirmUserInput = {
@@ -35,14 +27,17 @@ export type ConfirmUserInput = {
   confirmToken: Scalars['String'];
 };
 
-export type CreateAuthorInput = {
+export type CreateCompanyInput = {
   name: Scalars['String'];
 };
 
-export type CreateBookInput = {
-  title: Scalars['String'];
-  isbn: Scalars['String'];
-  author: Scalars['String'];
+export type CreateProductInput = {
+  modelName: Scalars['String'];
+  images: Scalars['String'];
+  type: Scalars['String'];
+  price: Scalars['Float'];
+  description: Scalars['String'];
+  company: Scalars['String'];
 };
 
 export type CreateUserInput = {
@@ -51,7 +46,7 @@ export type CreateUserInput = {
   password: Scalars['String'];
 };
 
-export type FindBookInput = {
+export type FindProductInput = {
   _id: Scalars['String'];
 };
 
@@ -62,19 +57,19 @@ export type LoginInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createAuthor: Author;
-  createBook: Book;
+  createCompany: Company;
+  createProduct: Product;
   registerUser: User;
   confirmUser: User;
   login?: Maybe<User>;
 };
 
-export type MutationCreateAuthorArgs = {
-  input: CreateAuthorInput;
+export type MutationCreateCompanyArgs = {
+  input: CreateCompanyInput;
 };
 
-export type MutationCreateBookArgs = {
-  input: CreateBookInput;
+export type MutationCreateProductArgs = {
+  input: CreateProductInput;
 };
 
 export type MutationRegisterUserArgs = {
@@ -89,17 +84,28 @@ export type MutationLoginArgs = {
   input: LoginInput;
 };
 
+export type Product = {
+  __typename?: 'Product';
+  _id: Scalars['ID'];
+  modelName: Scalars['String'];
+  images: Scalars['String'];
+  type: Scalars['String'];
+  price: Scalars['Float'];
+  description: Scalars['String'];
+  company: Company;
+};
+
 export type Query = {
   __typename?: 'Query';
-  authors: Array<Author>;
-  books: Array<Book>;
-  book: Book;
+  companies: Array<Company>;
+  products: Array<Product>;
+  product: Product;
   me?: Maybe<User>;
   logout?: Maybe<User>;
 };
 
-export type QueryBookArgs = {
-  input: FindBookInput;
+export type QueryProductArgs = {
+  input: FindProductInput;
 };
 
 export type User = {
@@ -126,7 +132,19 @@ export type LoginQuery = {
   me?: Maybe<{ __typename?: 'User'; _id: string; email: string; name: string }>;
 };
 
-export const LoginDocument = gql`
+export type ProductsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ProductsQuery = {
+  __typename?: 'Query';
+  products: Array<{
+    __typename?: 'Product';
+    modelName: string;
+    price: number;
+    company: { __typename?: 'Company'; _id: string; name: string };
+  }>;
+};
+
+export const LoginDocumentM = gql`
   mutation login($input: LoginInput!) {
     login(input: $input) {
       _id
@@ -156,11 +174,20 @@ export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutati
  */
 export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
+  return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocumentM, options);
 }
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const LoginDocument = gql`
+  query Login {
+    me {
+      _id
+      email
+      name
+    }
+  }
+`;
 
 /**
  * __useLoginQuery__
@@ -188,3 +215,42 @@ export function useLoginLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Logi
 export type LoginQueryHookResult = ReturnType<typeof useLoginQuery>;
 export type LoginLazyQueryHookResult = ReturnType<typeof useLoginLazyQuery>;
 export type LoginQueryResult = Apollo.QueryResult<LoginQuery, LoginQueryVariables>;
+export const ProductsDocument = gql`
+  query Products {
+    products {
+      modelName
+      price
+      company {
+        _id
+        name
+      }
+    }
+  }
+`;
+
+/**
+ * __useProductsQuery__
+ *
+ * To run a query within a React component, call `useProductsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProductsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useProductsQuery(baseOptions?: Apollo.QueryHookOptions<ProductsQuery, ProductsQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ProductsQuery, ProductsQueryVariables>(ProductsDocument, options);
+}
+export function useProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProductsQuery, ProductsQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<ProductsQuery, ProductsQueryVariables>(ProductsDocument, options);
+}
+export type ProductsQueryHookResult = ReturnType<typeof useProductsQuery>;
+export type ProductsLazyQueryHookResult = ReturnType<typeof useProductsLazyQuery>;
+export type ProductsQueryResult = Apollo.QueryResult<ProductsQuery, ProductsQueryVariables>;

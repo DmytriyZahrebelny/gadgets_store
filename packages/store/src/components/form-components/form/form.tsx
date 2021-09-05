@@ -10,12 +10,13 @@ export type FormProps = {
   name?: string;
 };
 
-export const Form = ({ children, onSubmit, formConfig, name = '' }: FormProps) => {
+export const Form = ({ children, onSubmit, formConfig, name = '', className = '' }: FormProps) => {
   const methods = useForm(formConfig);
 
   return (
     <FormProvider {...methods}>
       <AntdForm
+        className={className}
         name={name}
         onFinish={methods.handleSubmit((payload, event) => {
           onSubmit(payload, event);

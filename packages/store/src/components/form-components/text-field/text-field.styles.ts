@@ -1,5 +1,7 @@
 import { css } from '@emotion/css';
 
 export const styles = css`
-  width: 100%;
+  .ant-form-item {
+    margin-bottom: 0;
+  }
 `;

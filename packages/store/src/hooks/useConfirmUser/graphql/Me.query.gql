@@ -1,4 +1,4 @@
-query Login {
+query Me {
   me {
     _id,
     email,

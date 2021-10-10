@@ -1,16 +1,23 @@
-import { Spin } from './components/spin';
+import { Route, Switch } from 'react-router-dom';
+import { css } from '@emotion/css';
 
-import { Authorization } from './features/authorization';
-import { useConfirmUser } from './hooks/useConfirmUser';
+import Layout from 'antd/lib/layout/layout';
+import { Authorization } from './authorization';
+import { GadgetStore } from './gadget-store';
+import { ROUTES } from './app.constants';
 
-function App() {
-  const { loading } = useConfirmUser();
+export const contentStyles = css`
+  height: 100vh;
+  overflow: auto;
+`;
 
-  if (loading) {
-    return <Spin />;
-  }
-
-  return <Authorization />;
-}
+const App = () => (
+  <Layout className={contentStyles}>
+    <Switch>
+      <Route exact path={['/', ROUTES.gadgets]} component={GadgetStore} />
+      <Route path={[ROUTES.singIn, ROUTES.signUp]} component={Authorization} />
+    </Switch>
+  </Layout>
+);
 
 export default App;

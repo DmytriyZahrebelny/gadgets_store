@@ -3,7 +3,7 @@ import { Form as AntdForm } from 'antd';
 import { FormProvider, useForm, UseFormReturn, FieldValues, UseFormProps } from 'react-hook-form';
 
 export type FormProps = {
-  onSubmit: (values: Record<string, unknown>, event: unknown, methods?: UseFormReturn<FieldValues>) => void;
+  onSubmit: (values: any, event: unknown, methods?: UseFormReturn<FieldValues>) => void;
   children: ReactNode;
   className?: string;
   formConfig?: UseFormProps<FieldValues, any>;

@@ -1,32 +1,28 @@
 import { Form, Input, Typography } from 'antd';
 import { useFormContext, Controller } from 'react-hook-form';
-import { cx } from '@emotion/css';
 
-import { TextFieldProps, ControllerArgumentsType, EventType } from '../types';
-import { styles } from './text-field.styles';
+import { SearchFieldProps, ControllerArgumentsType } from '../types';
 import { labelStyles } from '../styles';
 import 'antd/dist/antd.css';
 
-export const TextField = ({
+export const SearchField = ({
   type,
   name,
   label = '',
   labelPosition = 'top',
   required,
-  onChange,
+  onSearch,
   defaultValue = '',
   className,
   ...props
-}: TextFieldProps) => {
+}: SearchFieldProps) => {
   const { control } = useFormContext();
 
   const getField = ({ field, fieldState }: ControllerArgumentsType) => {
-    const handleChange = (evt: EventType) => {
-      if (onChange) {
-        onChange(evt);
-        field.onChange(evt);
+    const handleChange = (value: string) => {
+      if (onSearch) {
+        onSearch(value);
       }
-      field.onChange(evt);
     };
 
     return (
@@ -42,9 +38,9 @@ export const TextField = ({
         initialValue={defaultValue}
         validateStatus={fieldState.error?.message ? 'error' : ''}
         help={fieldState.error?.message ? fieldState.error?.message : ''}
-        className={cx(styles, className)}
+        className={className}
       >
-        <Input type={type} {...field} onChange={handleChange} {...props} />
+        <Input.Search type={type} {...field} onSearch={handleChange} {...props} />
       </Form.Item>
     );
   };

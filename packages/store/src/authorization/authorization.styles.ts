@@ -1,9 +1,5 @@
 import { css } from '@emotion/css';
 
-export const contentStyles = css`
-  height: 100vh;
-`;
-
 export const containerStyles = css`
   display: block;
   width: 700px;

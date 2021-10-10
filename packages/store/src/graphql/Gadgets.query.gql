@@ -1,0 +1,12 @@
+{
+  products {
+    modelName,
+    price,
+    _id,
+    images,
+    company {
+      _id,
+      name,
+    }
+  }
+}

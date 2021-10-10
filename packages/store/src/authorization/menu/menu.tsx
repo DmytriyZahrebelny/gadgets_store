@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { cx } from '@emotion/css';
 
-import { ROUTES } from '../../../app.constants';
+import { ROUTES } from '../../app.constants';
 import { menuStyles, activeLinkStyle } from './menu.styles';
 
 export const Menu = () => {

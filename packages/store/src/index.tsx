@@ -6,7 +6,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const apolloClient = new ApolloClient({
+export const apolloClient = new ApolloClient({
   uri: 'http://localhost:5000/graphql',
   credentials: 'include',
   cache: new InMemoryCache(),

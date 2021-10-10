@@ -3,9 +3,9 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useHistory } from 'react-router-dom';
 
-import MutationRegister from './graphql/register.mutation.gql';
+import MutationRegister from '../../graphql/Register.mutation.gql';
 import { RegisterMutation, RegistrMutationVariables, RegisterInput } from './sign-up.type';
-import { ROUTES } from '../../../app.constants';
+import { ROUTES } from '../../app.constants';
 
 export const useSignUp = () => {
   const history = useHistory();

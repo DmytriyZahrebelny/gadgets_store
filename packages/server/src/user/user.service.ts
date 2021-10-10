@@ -19,7 +19,11 @@ export class UserService {
 
   async createUser(input: CreateUserInput) {
     const confirmToken = nanoid(32);
-    return this.userModel.create({ ...input, confirmToken });
+    const user = await this.userModel.create({ ...input, confirmToken });
+    user.active = true;
+    user.save();
+
+    return user;
   }
 
   async confirmUser({ email, confirmToken }: ConfirmUserInput) {
@@ -30,7 +34,7 @@ export class UserService {
     if (!user || confirmToken !== user.confirmToken) {
       throw new Error('Email or confirm token are incorrect');
     }
-
+    console.log('user', user);
     // change active to true
     user.active = true;
     // save the user

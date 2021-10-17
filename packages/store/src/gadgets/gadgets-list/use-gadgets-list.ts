@@ -1,10 +1,10 @@
 import { useQuery } from '@apollo/client';
 
-import QueryGadgets from '../../graphql/Gadgets.query.gql';
-import { GadgetsQuery } from './gadgets-list.type';
+import GadgetsQuery from '../../graphql/Gadgets.query.gql';
+import { GadgetsQueryType } from '../../types/queries-types';
 
 export const useGadgetsList = () => {
-  const { data, loading } = useQuery<GadgetsQuery>(QueryGadgets);
+  const { data, loading } = useQuery<GadgetsQueryType>(GadgetsQuery);
 
   return {
     loading,

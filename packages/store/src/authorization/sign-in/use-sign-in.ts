@@ -1,19 +1,23 @@
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 
-import { LoginMutation, LoginMutationVariables, LoginInput } from './sign-in.type';
-import MutationLogin from '../../graphql/Login.mutation.gql';
+import LoginMutation from '../../graphql/Login.mutation.gql';
 import QueryMe from '../../graphql/Me.query.gql';
+import { LoginMutationType, LoginMutationVariables, LoginInput } from '../../types';
 
 export const useSignIn = () => {
-  const [login, { error, loading }] = useMutation<LoginMutation, LoginMutationVariables>(MutationLogin, {
+  const history = useHistory();
+  const [login, { error, loading }] = useMutation<LoginMutationType, LoginMutationVariables>(LoginMutation, {
     refetchQueries: [{ query: QueryMe }],
   });
 
   const onSubmit = (data: Record<string, unknown>) => {
     const { email, password } = data as LoginInput;
     login({ variables: { input: { email, password } } });
+
+    history.push('/');
   };
 
   const schema = yup.object().shape({

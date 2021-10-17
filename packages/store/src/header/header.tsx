@@ -4,6 +4,7 @@ import { Icon } from '../components/Icon';
 
 import { headerStyles, headerContainerStyles } from './header.styles';
 import { HeaderSearch } from './header-search';
+import { HeaderLogin } from './header-login';
 
 export const Header = () => {
   return (
@@ -17,7 +18,10 @@ export const Header = () => {
         <Col span={14}>
           <HeaderSearch />
         </Col>
-        <Col span={4}>sign-in</Col>
+        <Col span={2}>
+          <HeaderLogin />
+        </Col>
+        <Col span={2}>sign-in</Col>
       </Row>
     </div>
   );

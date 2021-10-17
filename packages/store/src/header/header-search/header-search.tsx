@@ -6,7 +6,7 @@ export const HeaderSearch = () => {
 
   return (
     <Form onSubmit={onSubmit}>
-      <Field type="search" name="search" enterButton="Search" placeholder="search" allowClear />
+      <Field type="search" name="search" enterButton placeholder="search" allowClear />
     </Form>
   );
 };

@@ -3,16 +3,16 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useHistory } from 'react-router-dom';
 
-import MutationRegister from '../../graphql/Register.mutation.gql';
-import { RegisterMutation, RegistrMutationVariables, RegisterInput } from './sign-up.type';
+import RegisterMutation from '../../graphql/Register.mutation.gql';
+import { RegisterMutationType, RegistrMutationVariables, RegisterInput } from '../../types';
 import { ROUTES } from '../../app.constants';
 
 export const useSignUp = () => {
   const history = useHistory();
-  const [register] = useMutation<RegisterMutation, RegistrMutationVariables>(MutationRegister);
+  const [register] = useMutation<RegisterMutationType, RegistrMutationVariables>(RegisterMutation);
 
-  const onSubmit = (data: Record<string, unknown>) => {
-    const { email, password, name } = data as RegisterInput;
+  const onSubmit = (data: RegisterInput) => {
+    const { email, password, name } = data;
     register({ variables: { input: { email, password, name } } });
 
     history.push(ROUTES.singIn);

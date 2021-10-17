@@ -44,7 +44,7 @@ export type TextAreaFieldProps = {
 } & BaseFieldProps;
 
 export type SearchFieldProps = {
-  enterButton?: string;
+  enterButton?: string | boolean;
   allowClear?: boolean;
   labelPosition?: 'top' | 'left';
   onSearch?: (value: string) => void;

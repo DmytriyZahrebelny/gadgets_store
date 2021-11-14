@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { Form, Input, Typography } from 'antd';
 import { useFormContext, Controller } from 'react-hook-form';
 import { cx } from '@emotion/css';
@@ -20,7 +21,7 @@ export const TextField = ({
 }: TextFieldProps) => {
   const { control } = useFormContext();
 
-  const getField = ({ field, fieldState }: ControllerArgumentsType) => {
+  const getField = useCallback(({ field, fieldState }: ControllerArgumentsType) => {
     const handleChange = (evt: EventType) => {
       if (onChange) {
         onChange(evt);
@@ -47,7 +48,7 @@ export const TextField = ({
         <Input type={type} {...field} onChange={handleChange} {...props} />
       </Form.Item>
     );
-  };
+  }, []);
 
   return <Controller control={control} name={name} render={getField} />;
 };

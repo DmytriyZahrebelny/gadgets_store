@@ -6,7 +6,7 @@ export type FormProps = {
   onSubmit: (values: any, event: unknown, methods?: UseFormReturn<FieldValues>) => void;
   children: ReactNode;
   className?: string;
-  formConfig?: UseFormProps<FieldValues, any>;
+  formConfig?: UseFormProps<FieldValues>;
   name?: string;
 };
 

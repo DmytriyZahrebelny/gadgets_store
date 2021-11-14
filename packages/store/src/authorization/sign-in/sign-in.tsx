@@ -10,6 +10,9 @@ export const SignIn = () => {
   return (
     <Form className={formStyles} onSubmit={onSubmit} formConfig={{ resolver: validationScheme }}>
       <Field type="text" name="email" label="Email" required />
+      <Field type="text" name="test_1" label="Email" required />
+      <Field type="text" name="test_2" label="Email" required />
+      <Field type="text" name="test_3" label="Email" required />
       <Field type="password" name="password" label="Password" required />
       <Button htmlType="submit" type="primary">
         Log in

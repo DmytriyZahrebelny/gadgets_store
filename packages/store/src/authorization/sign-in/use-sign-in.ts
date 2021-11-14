@@ -13,8 +13,8 @@ export const useSignIn = () => {
     refetchQueries: [{ query: QueryMe }],
   });
 
-  const onSubmit = (data: Record<string, unknown>) => {
-    const { email, password } = data as LoginInput;
+  const onSubmit = (data: LoginInput) => {
+    const { email, password } = data;
     login({ variables: { input: { email, password } } });
 
     history.push('/');
